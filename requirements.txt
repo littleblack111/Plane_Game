@@ -1,0 +1,4 @@
+pgzero==1.2.1
+pip==23.0.1
+pygame==2.1.2
+pynput==1.7.6
