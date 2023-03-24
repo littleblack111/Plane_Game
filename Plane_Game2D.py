@@ -6,9 +6,11 @@ import time
 import os
 from pynput import mouse
 
+status = 0
+
 counter = 0
 time = 0
-Kills = 0
+kills = 0
 
 WIDTH = 500
 HEIGHT = 700
@@ -29,7 +31,7 @@ for i in range(3):
 def draw():
     global counter
     global cooldown
-    global Kills
+    global kills
     global time
     screen.blit('bg', [0, 0])
     player.draw()
@@ -43,7 +45,7 @@ def draw():
 def on_key_down(key):
     global counter
     global cooldown
-    global Kills
+    global kills
     global time
     # left click for shoot
     control = mouse.Controller()
@@ -52,21 +54,23 @@ def on_key_down(key):
         weapon.x = player.x
         weapon.y = player.y - 50
         weapons.append(weapon)
+
 def on_mouse_down():
     global counter
     global cooldown
-    global Kills
+    global kills
     global time
     weapon = Actor('aml')
     weapon.x = player.x
     weapon.y = player.y - 50        
     weapons.append(weapon)
 
+status = 1
 
 def update():
     global counter
     global cooldown
-    global Kills
+    global kills
     global time
     counter += 1
     #Player move
@@ -78,10 +82,17 @@ def update():
         player.y -= 5
     if keyboard.down or keyboard.s:
         player.y += 5 
-    if player.image == 'fail':
-        print('You Have Killed',Kills)
+    if player.image == 'fail' and status == 2:
+        print('You Have Killed',kills)
         print('You Got in',time,'secounds')
         exit()
+
+    # display time & score on screen
+    #screen.blit()
+    
+
+    
+
     # timer
     for e in enemy:
         if counter == 60:
@@ -116,14 +127,15 @@ def update():
             if e.colliderect(w):
                 e.x = random.randint(0, 500)
                 e.y = 0
-                Kills += 1
+                kills += 1
                 weapons.remove(w)
 
         
         # faild
         if e.colliderect(player) or player.y <= -15 or player.y >= 715 or player.x >= 515 or player.x <= -15:
             player.image = 'fail'
-            #播放失败音乐
+            status = 2
+            # play faild music
             music.play('faild')
 
 # background music
