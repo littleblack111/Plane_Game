@@ -68,10 +68,7 @@ def on_mouse_down():
 status = 1
 
 def update():
-    global counter
-    global cooldown
-    global kills
-    global time
+    global counter, cooldown, kills, time, status
     counter += 1
     #Player move
     if keyboard.left or keyboard.a:
