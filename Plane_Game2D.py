@@ -38,7 +38,7 @@ def draw():
     screen.draw.text(f"Time Survivaed: {time}", (20, 10))
     player.draw()
     # fucked char
-    if player.image != 'fail':
+    if player.image != 'fail1':
         for w in weapons:
             w.draw()
         for e in enemy:
@@ -82,7 +82,7 @@ def update():
         player.y -= 5
     if keyboard.down or keyboard.s:
         player.y += 5 
-    if player.image == 'fail' and status == 2:
+    if player.image == 'fail1' and status == 2:
         print('You Have Killed',kills)
         print('You Got in',time,'secounds')
         exit()
@@ -98,10 +98,9 @@ def update():
         if counter == 60:
             counter = 0
             time += 1
-    # make entity movwe
-    if e.y >= 150:
-        random_num = random.randint(1, 5)
-        if random == 1:
+        # make entity move
+
+        if random.randint(1,  2) == 1:
             e.x += 2
         else:
             e.x -= 2
@@ -133,7 +132,7 @@ def update():
         
         # faild
         if e.colliderect(player) or player.y <= -15 or player.y >= 715 or player.x >= 515 or player.x <= -15:
-            player.image = 'fail'
+            player.image = 'fail1'
             status = 2
             # play faild music
             music.play('faild')
