@@ -34,6 +34,8 @@ def draw():
     global kills
     global time
     screen.blit('bg', [0, 0])
+    screen.draw.text(f"Killed: {kills}", (20, 30))
+    screen.draw.text(f"Time Survivaed: {time}", (20, 10))
     player.draw()
     # fucked char
     if player.image != 'fail':
@@ -41,6 +43,7 @@ def draw():
             w.draw()
         for e in enemy:
             e.draw()
+    
 # shoot
 def on_key_down(key):
     global counter
